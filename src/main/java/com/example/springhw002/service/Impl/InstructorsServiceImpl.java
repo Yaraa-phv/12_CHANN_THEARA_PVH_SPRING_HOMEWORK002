@@ -18,8 +18,8 @@ public class InstructorsServiceImpl implements InstructorsService {
     }
 
     @Override
-    public List<Instructors> getAllInstructors(){
-        return instructorsRepository.getAllInstructors();
+    public List<Instructors> getAllInstructors(Integer offset, Integer limit){
+        return instructorsRepository.getAllInstructors(offset, limit);
     }
 
     @Override

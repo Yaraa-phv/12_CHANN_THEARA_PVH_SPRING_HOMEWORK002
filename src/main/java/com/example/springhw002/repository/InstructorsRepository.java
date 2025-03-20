@@ -11,12 +11,14 @@ public interface InstructorsRepository {
 
     @Select("""
         SELECT * FROM instructors
+        OFFSET #{offset}
+        LIMIT #{limit}
     """)
     @Results(id = "instructorMapper", value = {
             @Result(property = "id", column = "instructor_id"),
             @Result(property = "name", column = "instructor_name"),
     })
-    List<Instructors> getAllInstructors();
+    List<Instructors> getAllInstructors(Integer offset, Integer limit);
 
     @Select("""
         INSERT INTO instructors(instructor_name, email)

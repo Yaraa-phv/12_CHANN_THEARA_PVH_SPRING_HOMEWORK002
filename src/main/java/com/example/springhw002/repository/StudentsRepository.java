@@ -11,6 +11,8 @@ public interface StudentsRepository {
 
     @Select("""
         SELECT * FROM students
+        OFFSET #{offset}
+        LIMIT #{limit}
     """)
     @Results(id = "studentsMapper", value = {
             @Result(property = "id", column = "student_id"),
@@ -19,7 +21,7 @@ public interface StudentsRepository {
             @Result(property = "courses", column = "student_id",
                     many = @Many(select = "com.example.springhw002.repository.CoursesRepository.getCourseByStudentID"))
     })
-    List<Students> getAllStudents();
+    List<Students> getAllStudents(Integer offset, Integer limit);
 
 
     @Select("""

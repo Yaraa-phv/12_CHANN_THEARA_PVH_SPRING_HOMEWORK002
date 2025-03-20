@@ -24,10 +24,10 @@ public class InstructorsController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Instructors>>> getAllInstructors(){
+    public ResponseEntity<ApiResponse<List<Instructors>>> getAllInstructors(@RequestParam Integer offset, @RequestParam Integer limit){
         ApiResponse<List<Instructors>> response = ApiResponse.<List<Instructors>> builder()
                 .message("Get All Instructors Successfully")
-                .payload(instructorsService.getAllInstructors())
+                .payload(instructorsService.getAllInstructors(offset, limit))
                 .status(HttpStatus.OK)
                 .time(LocalDateTime.now())
                 .build();

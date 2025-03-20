@@ -12,6 +12,8 @@ public interface CoursesRepository {
 
     @Select("""
         SELECT * FROM courses
+        OFFSET #{offset}
+        LIMIT #{limit}
     """)
     @Results(id = "coursesMapper", value = {
             @Result(property = "id", column = "course_id"),
@@ -19,7 +21,7 @@ public interface CoursesRepository {
             @Result(property = "instructors", column = "instructor_id",
                     one = @One(select = "com.example.springhw002.repository.InstructorsRepository.getInstructorByID"))
     })
-    List<Courses> getAllCourses();
+    List<Courses> getAllCourses(Integer offset, Integer limit);
 
     @Select("""
         INSERT INTO courses(course_name, description, instructor_id)

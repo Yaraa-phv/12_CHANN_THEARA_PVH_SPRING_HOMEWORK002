@@ -25,10 +25,10 @@ public class CoursesController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Courses>>> getAllCourses(){
+    public ResponseEntity<ApiResponse<List<Courses>>> getAllCourses(@RequestParam Integer offset, @RequestParam Integer limit){
         ApiResponse<List<Courses>> response = ApiResponse.<List<Courses>> builder()
                 .message("Get All Courses Successfully")
-                .payload(coursesService.getAllCourses())
+                .payload(coursesService.getAllCourses(offset, limit))
                 .status(HttpStatus.OK)
                 .time(LocalDateTime.now())
                 .build();

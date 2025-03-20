@@ -6,7 +6,7 @@ import com.example.springhw002.model.entity.Courses;
 import java.util.List;
 
 public interface CoursesService {
-    List<Courses> getAllCourses();
+    List<Courses> getAllCourses(Integer offset, Integer limit);
     Courses addCourse(CourseRequest courseRequest);
     Courses getCourseByID(Integer id);
     Courses updateCourseByID(Integer id, CourseRequest courseRequest);

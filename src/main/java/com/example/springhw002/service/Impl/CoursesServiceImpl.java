@@ -18,8 +18,8 @@ public class CoursesServiceImpl implements CoursesService {
     }
 
     @Override
-    public List<Courses> getAllCourses() {
-        return coursesRepository.getAllCourses();
+    public List<Courses> getAllCourses(Integer offset, Integer limit) {
+        return coursesRepository.getAllCourses(offset, limit);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.example.springhw002.model.dto.response.ApiResponse;
 import com.example.springhw002.model.entity.Courses;
 import com.example.springhw002.model.entity.Students;
 import com.example.springhw002.service.StudentsService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/students")
+@Tag(name = "Student Controller")
 public class StudentsController {
 
     private final StudentsService studentsService;
@@ -24,10 +26,10 @@ public class StudentsController {
 
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents(){
+    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents(@RequestParam Integer offset, @RequestParam Integer limit){
         ApiResponse<List<Students>> response = ApiResponse.<List<Students>> builder()
                 .message("Get All Students Successfully")
-                .payload(studentsService.getAllStudents())
+                .payload(studentsService.getAllStudents(offset, limit))
                 .status(HttpStatus.OK)
                 .time(LocalDateTime.now())
                 .build();

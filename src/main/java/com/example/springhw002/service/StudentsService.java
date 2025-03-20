@@ -6,7 +6,7 @@ import com.example.springhw002.model.entity.Students;
 import java.util.List;
 
 public interface StudentsService {
-    List<Students> getAllStudents();
+    List<Students> getAllStudents(Integer offset, Integer limit);
     Students addStudent(StudentRequest studentRequest);
     Students getStudentByID(Integer id);
     Students updateStudentByID(Integer id, StudentRequest studentRequest);
