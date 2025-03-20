@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@Service
 public interface InstructorsService {
-
     List<Instructors> getAllInstructors();
     Instructors addInstructor(InstructorRequest instructorRequest);
     Instructors getInstructorByID(Integer id);
