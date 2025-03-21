@@ -11,6 +11,7 @@ public interface InstructorsRepository {
 
     @Select("""
         SELECT * FROM instructors
+                 ORDER BY instructor_id
         OFFSET #{offset}
         LIMIT #{limit}
     """)

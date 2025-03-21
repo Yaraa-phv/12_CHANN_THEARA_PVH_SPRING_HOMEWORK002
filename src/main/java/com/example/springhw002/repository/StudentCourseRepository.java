@@ -14,6 +14,22 @@ public interface StudentCourseRepository {
 //        INNER JOIN public.student_course sc ON c.course_id = sc.course_id
 //        WHERE student_id = #{studentId}
 //    """)
+//    @ResultMap("coursesMapper")
+//    @Result(property = "studentId", column = "student_id")
+//    List<Courses> getCourseByStudentID(Integer studentId);
+//
+//    @Update("""
+//        UPDATE student_course
+//        SET course_id = #{courseId}
+//        WHERE student_id = #{studentId}
+//    """)
+//    void updateStudentCourse(Integer studentId, Integer courseId);
+//
+////    @Select("""
+//        SELECT c.course_id, c.course_name, c.description, c.instructor_id FROM courses c
+//        INNER JOIN public.student_course sc ON c.course_id = sc.course_id
+//        WHERE student_id = #{studentId}
+//    """)
 //    @Results(id = "StuCourseMapper", value = {
 //            @Result(property = "studentId", column = "student_id"),
 //            @Result(property = "id",column = "course_id"),

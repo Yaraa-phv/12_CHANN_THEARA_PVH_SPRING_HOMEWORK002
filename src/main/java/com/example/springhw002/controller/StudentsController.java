@@ -26,7 +26,7 @@ public class StudentsController {
 
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents(@RequestParam Integer offset, @RequestParam Integer limit){
+    public ResponseEntity<ApiResponse<List<Students>>> getAllStudents(@RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "5") Integer limit){
         ApiResponse<List<Students>> response = ApiResponse.<List<Students>> builder()
                 .message("Get All Students Successfully")
                 .payload(studentsService.getAllStudents(offset, limit))

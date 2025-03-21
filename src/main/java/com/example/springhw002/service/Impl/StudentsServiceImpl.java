@@ -3,6 +3,7 @@ package com.example.springhw002.service.Impl;
 import com.example.springhw002.model.dto.request.StudentRequest;
 import com.example.springhw002.model.entity.Students;
 import com.example.springhw002.repository.CoursesRepository;
+import com.example.springhw002.repository.StudentCourseRepository;
 import com.example.springhw002.repository.StudentsRepository;
 import com.example.springhw002.service.StudentsService;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,13 @@ import java.util.List;
 public class StudentsServiceImpl implements StudentsService {
 
     private final StudentsRepository studentsRepository;
+    private final StudentCourseRepository studentCourseRepository;
     private final CoursesRepository coursesRepository;
 
 
-    public StudentsServiceImpl(StudentsRepository studentsRepository, CoursesRepository coursesRepository){
+    public StudentsServiceImpl(StudentsRepository studentsRepository, StudentCourseRepository studentCourseRepository, CoursesRepository coursesRepository){
         this.studentsRepository = studentsRepository;
+        this.studentCourseRepository = studentCourseRepository;
         this.coursesRepository = coursesRepository;
     }
 
@@ -28,7 +31,6 @@ public class StudentsServiceImpl implements StudentsService {
 
     @Override
     public Students addStudent(StudentRequest studentRequest) {
-
         Students students = studentsRepository.addStudent(studentRequest);
         for (Integer courseId : studentRequest.getCourseId()){
             coursesRepository.addStudentCourse(students.getId(), courseId);

@@ -25,7 +25,7 @@ public class CoursesController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Courses>>> getAllCourses(@RequestParam Integer offset, @RequestParam Integer limit){
+    public ResponseEntity<ApiResponse<List<Courses>>> getAllCourses(@RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "5") Integer limit){
         ApiResponse<List<Courses>> response = ApiResponse.<List<Courses>> builder()
                 .message("Get All Courses Successfully")
                 .payload(coursesService.getAllCourses(offset, limit))

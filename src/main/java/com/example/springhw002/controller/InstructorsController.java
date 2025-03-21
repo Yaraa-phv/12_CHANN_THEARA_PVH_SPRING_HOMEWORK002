@@ -24,7 +24,7 @@ public class InstructorsController {
     }
 
     @GetMapping
-    public ResponseEntity<ApiResponse<List<Instructors>>> getAllInstructors(@RequestParam Integer offset, @RequestParam Integer limit){
+    public ResponseEntity<ApiResponse<List<Instructors>>> getAllInstructors(@RequestParam(defaultValue = "0") Integer offset, @RequestParam(defaultValue = "5") Integer limit){
         ApiResponse<List<Instructors>> response = ApiResponse.<List<Instructors>> builder()
                 .message("Get All Instructors Successfully")
                 .payload(instructorsService.getAllInstructors(offset, limit))

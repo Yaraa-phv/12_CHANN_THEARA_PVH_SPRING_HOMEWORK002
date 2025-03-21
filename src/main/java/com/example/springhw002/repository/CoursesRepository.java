@@ -12,8 +12,10 @@ public interface CoursesRepository {
 
     @Select("""
         SELECT * FROM courses
+                 ORDER BY course_id
         OFFSET #{offset}
         LIMIT #{limit}
+        
     """)
     @Results(id = "coursesMapper", value = {
             @Result(property = "id", column = "course_id"),
@@ -26,7 +28,7 @@ public interface CoursesRepository {
     @Select("""
         INSERT INTO courses(course_name, description, instructor_id)
         VALUES (#{add.name}, #{add.description}, #{add.instructorId})
-        RETURNING *
+        RETURNING * 
     """)
     @ResultMap("coursesMapper")
     Courses addCourse(@Param("add") CourseRequest courseRequest);
@@ -58,17 +60,17 @@ public interface CoursesRepository {
 
     @Select("""
         SELECT c.course_id, c.course_name, c.description, c.instructor_id FROM courses c 
-        INNER JOIN public.student_course sc ON c.course_id = sc.course_id
+        INNER JOIN student_course sc ON c.course_id = sc.course_id
         WHERE student_id = #{studentId}
     """)
     @ResultMap("coursesMapper")
     @Result(property = "studentId", column = "student_id")
     List<Courses> getCourseByStudentID(Integer studentId);
 
-    //2, 3
     @Insert("""
         INSERT INTO student_course(student_id, course_id) 
         VALUES (#{studentId}, #{courseId})
+        RETURNING *
     """)
     void addStudentCourse(Integer studentId, Integer courseId);
 

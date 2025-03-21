@@ -11,6 +11,7 @@ public interface StudentsRepository {
 
     @Select("""
         SELECT * FROM students
+                 ORDER BY student_id
         OFFSET #{offset}
         LIMIT #{limit}
     """)
@@ -52,6 +53,7 @@ public interface StudentsRepository {
     @Select("""
         DELETE FROM students 
         WHERE student_id = #{id}
+        RETURNING *
     """)
     @ResultMap("studentsMapper")
     Students deleteStudentByID(Integer id);
