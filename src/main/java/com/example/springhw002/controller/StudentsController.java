@@ -1,5 +1,6 @@
 package com.example.springhw002.controller;
 
+import com.example.springhw002.exception.NotFoundException;
 import com.example.springhw002.model.dto.request.StudentRequest;
 import com.example.springhw002.model.dto.response.ApiResponse;
 import com.example.springhw002.model.entity.Courses;
@@ -38,6 +39,10 @@ public class StudentsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Students>> getStudentByID(@PathVariable Integer id){
+        if (studentsService.getStudentByID(id) == null){
+            throw new NotFoundException("Student with ID : "+id+" Not Found");
+        }
+
         ApiResponse<Students> response = ApiResponse.<Students> builder()
                 .message("Get A Students Successfully")
                 .payload(studentsService.getStudentByID(id))
@@ -50,6 +55,7 @@ public class StudentsController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<Students>> addStudent(@RequestBody StudentRequest studentRequest){
+
         ApiResponse<Students> response = ApiResponse.<Students> builder()
                 .message("Add A Students Successfully")
                 .payload(studentsService.addStudent(studentRequest))
@@ -61,6 +67,10 @@ public class StudentsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Students>> updateStudentByID(@PathVariable Integer id, @RequestBody StudentRequest studentRequest){
+        if (studentsService.updateStudentByID(id, studentRequest) == null){
+            throw new NotFoundException("Student with ID : "+id+" Not Found");
+        }
+
         ApiResponse<Students> response = ApiResponse.<Students> builder()
                 .message("Update A Students Successfully")
                 .payload(studentsService.updateStudentByID(id, studentRequest))
@@ -72,6 +82,10 @@ public class StudentsController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Students>> deleteStudentByID(@PathVariable Integer id){
+
+        if (studentsService.deleteStudentByID(id) == null){
+            throw new NotFoundException("Student with ID : "+id+" Not Found");
+        }
         ApiResponse<Students> response = ApiResponse.<Students> builder()
                 .message("Delete A Students Successfully")
                 .payload(studentsService.deleteStudentByID(id))

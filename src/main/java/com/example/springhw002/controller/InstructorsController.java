@@ -1,5 +1,6 @@
 package com.example.springhw002.controller;
 
+import com.example.springhw002.exception.NotFoundException;
 import com.example.springhw002.model.dto.request.InstructorRequest;
 import com.example.springhw002.model.dto.response.ApiResponse;
 import com.example.springhw002.model.entity.Instructors;
@@ -48,6 +49,10 @@ public class InstructorsController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Instructors>> getInstructorById(@PathVariable Integer id){
+
+        if (instructorsService.getInstructorByID(id) == null){
+            throw new NotFoundException("Instructor with ID : "+id+" Not Found");
+        }
         ApiResponse<Instructors> response = ApiResponse.<Instructors> builder()
                 .message("Get An Instructor Successfully")
                 .payload(instructorsService.getInstructorByID(id))
@@ -59,6 +64,11 @@ public class InstructorsController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Instructors>> updateInstructorByID(@PathVariable Integer id, @RequestBody InstructorRequest instructorRequest){
+
+        if (instructorsService.updateInstructorByID(id, instructorRequest) == null){
+            throw new NotFoundException("Instructor with ID : "+id+" Not Found");
+        }
+
         ApiResponse<Instructors> response = ApiResponse.<Instructors> builder()
                 .message("Update An Instructor Successfully")
                 .payload(instructorsService.updateInstructorByID(id, instructorRequest))
@@ -70,6 +80,10 @@ public class InstructorsController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Instructors>> deleteInstructorByID(@PathVariable Integer id){
+        if (instructorsService.deleteInstructorByID(id) == null){
+            throw new NotFoundException("Instructor with ID : "+id+" Not Found");
+        }
+
         ApiResponse<Instructors> response = ApiResponse.<Instructors> builder()
                 .message("Delete An Instructor Successfully")
                 .payload(instructorsService.deleteInstructorByID(id))

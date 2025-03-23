@@ -1,5 +1,6 @@
 package com.example.springhw002.controller;
 
+import com.example.springhw002.exception.NotFoundException;
 import com.example.springhw002.model.dto.request.CourseRequest;
 import com.example.springhw002.model.dto.response.ApiResponse;
 import com.example.springhw002.model.entity.Courses;
@@ -48,6 +49,10 @@ public class CoursesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<Courses>> getCourseByID(@PathVariable Integer id){
+
+        if (coursesService.getCourseByID(id) == null){
+            throw new NotFoundException("Course with ID : "+id+" Not Found");
+        }
         ApiResponse<Courses> response = ApiResponse.<Courses> builder()
                 .message("Get A Course Successfully")
                 .payload(coursesService.getCourseByID(id))
@@ -59,23 +64,34 @@ public class CoursesController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<Courses>> updateCourseByID(@PathVariable Integer id, @RequestBody CourseRequest courseRequest){
-        ApiResponse<Courses> response = ApiResponse.<Courses> builder()
-                .message("Update A Course Successfully")
-                .payload(coursesService.updateCourseByID(id, courseRequest))
-                .status(HttpStatus.OK)
-                .time(LocalDateTime.now())
-                .build();
-        return ResponseEntity.ok(response);
+
+        if (coursesService.updateCourseByID(id, courseRequest) == null){
+            throw new NotFoundException("Course with ID : "+id+" Not Found");
+        }
+
+            ApiResponse<Courses> response = ApiResponse.<Courses> builder()
+                    .message("Update A Course Successfully")
+                    .payload(coursesService.updateCourseByID(id, courseRequest))
+                    .status(HttpStatus.OK)
+                    .time(LocalDateTime.now())
+                    .build();
+            return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Courses>> deleteCourseByID(@PathVariable Integer id){
-        ApiResponse<Courses> response = ApiResponse.<Courses> builder()
-                .message("Update A Course Successfully")
-                .payload(coursesService.deleteCourseByID(id))
-                .status(HttpStatus.OK)
-                .time(LocalDateTime.now())
-                .build();
-        return ResponseEntity.ok(response);
+
+        if (coursesService.deleteCourseByID(id) == null){
+            throw new NotFoundException("Course with ID : "+id+" Not Found");
+        }
+
+            ApiResponse<Courses> response = ApiResponse.<Courses> builder()
+                    .message("Update A Course Successfully")
+                    .payload(coursesService.deleteCourseByID(id))
+                    .status(HttpStatus.OK)
+                    .time(LocalDateTime.now())
+                    .build();
+            return ResponseEntity.ok(response);
+
     }
 }
